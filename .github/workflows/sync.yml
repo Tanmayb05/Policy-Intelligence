@@ -1,0 +1,23 @@
+name: Upstream Sync
+
+on:
+  schedule:
+    - cron:  '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  sync_latest_from_upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+        with:
+          ref:  poc-done-phase-5 # Replace with your default branch name
+
+      - name: Sync upstream changes
+        id: sync
+        uses: aieri/upstream-sync@v0.1
+        with:
+          upstream_repository: Hero4440/Policy-Intelligence # Replace with original repo
+          target_branch: poc-done-phase-5
+          upstream_branch: poc-done-phase-5
